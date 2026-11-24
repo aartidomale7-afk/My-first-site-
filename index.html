@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>मेरी पहली वेबसाइट</title>
     <style>
       body {
@@ -13,19 +15,35 @@
       img {
         width: 300px;
       }
+      video {
+        width: 90%;
+        max-width: 500px;
+        margin-top: 20px;
+      }
       button {
         font-size: 20px;
         padding: 10px 20px;
       }
     </style>
   </head>
-  <body><a href="About.html">About</a>
-<a href="Co<a href="Gallery.html">Gallery</a>ntact.html">Contact</a>
+  <body>
     <h1>नमस्ते Rai!</h1>
     <p>यह मेरी पहली वेबसाइट है।</p>
     <img src="https://placedog.net/400/300" alt="नमूना फ़ोटो">
     <br><br>
-    <button onclick="document.body.style.backgroundColor='purple'">रंग बदलो</button>
+    <button onclick="document.body.style.backgroundColor='lightblue'">रंग बदलो</button>
+    <br><br>
+
+    <h2>शतरंज का वीडियो</h2>
+    <video controls>
+      <source src="chess.mp4" type="video/mp4">
+      आपका ब्राउज़र वीडियो नहीं चला सकता।
+    </video>
+
+    <br><br>
+    <a href="About.html"><button>About</button></a>
+    <a href="Gallery.html"><button>Gallery</button></a>
+    <a href="Contact.html"><button>Contact</button></a>
     <br><br>
     <a href="About.html">मेरे बारे में पढ़िए</a>
   </body>
