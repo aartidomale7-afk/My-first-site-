@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>रिस्पॉन्सिव डिज़ाइन</title>
+  <style>
+    .bahar {
+      display: flex;
+      gap: 10px;
+    }
+    .dibba {
+      flex: 1;
+      padding: 10px;
+      color: white;
+      text-align: center;
+      font-size: 24px;
+    }
+    .lal { background-color: red; }
+    .hara { background-color: green; }
+    .neela { background-color: blue; }
+
+    @media (max-width: 2000px) {
+      .bahar {
+        flex-direction: column;
+      }
+      .dibba {
+        background-color: purple;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bahar">
+    <div class="dibba lal">1</div>
+    <div class="dibba hara">2</div>
+    <div class="dibba neela">3</div>
+  </div>
+</body>
+</html>
