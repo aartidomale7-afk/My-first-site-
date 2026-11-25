@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mera Pokemon Game</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #1e3c72; color: white; text-align: center; margin: 0; padding: 16px; }
+  h1 { margin: 8px 0; }
+  .card { background: #2a5298; border-radius: 16px; padding: 16px; margin: 12px auto; max-width: 360px; }
+  .emoji { font-size: 80px; }
+  .bar { background: #555; border-radius: 8px; height: 16px; overflow: hidden; margin: 6px 0; }
+  .fill { background: #4caf50; height: 100%; width: 100%; transition: width 0.3s; }
+  button { font-size: 18px; padding: 12px 20px; margin: 6px; border: none; border-radius: 12px; background: #ffcb05; color: #1e3c72; font-weight: bold; }
+  #log { min-height: 48px; font-size: 16px; }
+</style>
+</head>
+<body>
+  <h1>Pokemon Game</h1>
+
+  <div class="card">
+    <div>Tumhara Pokemon</div>
+    <div class="emoji" id="myEmoji">⚡</div>
+    <div id="myName">Pikachu</div>
+    <div class="bar"><div class="fill" id="myBar"></div></div>
+  </div>
+
+  <div class="card">
+    <div>Jungli Pokemon</div>
+    <div class="emoji" id="wildEmoji">?</div>
+    <div id="wildName">...</div>
+    <div class="bar"><div class="fill" id="wildBar" style="background:#e53935"></div></div>
+  </div>
+
+  <div id="log">Khel shuru karo!</div>
+
+  <button onclick="attack()">Ladai</button>
+  <button onclick="tryCatch()">Pakdo</button>
+  <button onclick="newWild()">Naya Pokemon</button>
+
+  <div class="card">
+    <div>Pakde hue Pokemon:</div>
+    <div id="caught">Abhi koi nahi</div>
+  </div>
+
+<script>
+  var wildList = [
+    { name: "Charmander", emoji: "🔥", hp: 40 },
+    { name: "Squirtle", emoji: "💧", hp: 45 },
+    { name: "Bulbasaur", emoji: "🌿", hp: 45 },
+    { name: "Pidgey", emoji: "🐦", hp: 35 }
+  ];
+
+  var me = { hp: 100, maxHp: 100 };
+  var wild = null;
+  var caughtList = [];
+
+  function say(text) {
+    document.getElementById("log").innerText = text;
+  }
+
+  function updateBars() {
+    document.getElementById("myBar").style.width = (me.hp / me.maxHp * 100) + "%";
+    if (wild) {
+      document.getElementById("wildBar").style.width = (wild.hp / wild.maxHp * 100) + "%";
+    }
+  }
+
+  function newWild() {
+    var pick = wildList[Math.floor(Math.random() * wildList.length)];
+    wild = { name: pick.name, emoji: pick.emoji, hp: pick.hp, maxHp: pick.hp };
+    me.hp = me.maxHp;
+    document.getElementById("wildEmoji").innerText = wild.emoji;
+    document.getElementById("wildName").innerText = wild.name;
+    updateBars();
+    say("Ek jungli " + wild.name + " aa gaya!");
+  }
+
+  function attack() {
+    if (!wild) { say("Pehle naya Pokemon lao!"); return; }
+    var myDamage = Math.floor(Math.random() * 15) + 5;
+    wild.hp = Math.max(0, wild.hp - myDamage);
+    var msg = "Tumne " + myDamage + " damage kiya. ";
+
+    if (wild.hp === 0) {
+      updateBars();
+      say(msg + wild.name + " haar gaya! Ab Naya Pokemon dabao.");
+      wild = null;
+      return;
+    }
+
+    var hisDamage = Math.floor(Math.random() * 10) + 3;
+    me.hp = Math.max(0, me.hp - hisDamage);
+    msg += wild.name + " ne " + hisDamage + " damage kiya.";
+    updateBars();
+
+    if (me.hp === 0) {
+      msg = "Tum haar gaye! Naya Pokemon dabao.";
+      wild = null;
+    }
+    say(msg);
+  }
+
+  function tryCatch() {
+    if (!wild) { say("Pehle naya Pokemon lao!"); return; }
+    var chance = 1 - (wild.hp / wild.maxHp);
+    chance = Math.max(0.15, chance);
+    if (Math.random() < chance) {
+      caughtList.push(wild.emoji + " " + wild.name);
+      document.getElementById("caught").innerText = caughtList.join(", ");
+      say(wild.name + " pakda gaya! Shabaash!");
+      wild = null;
+    } else {
+      say(wild.name + " bach nikla! Dobara koshish karo.");
+    }
+  }
+
+  newWild();
+</script>
+</body>
+</html>
